@@ -6,6 +6,8 @@
 struct Field {
   enum { NET, P1_SCORE, P2_SCORE, UP_LINE, BOTTON_LINE };
   std::array<sf::RectangleShape, 5> field_objects;
+  float up_line_position;
+  float bot_line_position;
 
   Field(void) {
     auto &net = field_objects[NET];
