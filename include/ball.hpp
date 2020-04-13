@@ -9,7 +9,7 @@ struct Ball {
   float position_y;
   sf::CircleShape shape;
 
-  Ball(void) : shape(32) {
+  Ball(void) : shape(24) {
     shape.setFillColor(sf::Color::Yellow);
 
     shape.setPosition({400, 200});
