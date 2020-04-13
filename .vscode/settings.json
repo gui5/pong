@@ -1,0 +1,19 @@
+{
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+    "files.associations": {
+        "*.tcc": "cpp",
+        "bitset": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "fstream": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "streambuf": "cpp",
+        "functional": "cpp",
+        "__node_handle": "cpp",
+        "hash_map": "cpp",
+        "map": "cpp",
+        "string": "cpp",
+        "vector": "cpp"
+    }
+}
