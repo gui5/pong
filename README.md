@@ -1,4 +1,4 @@
-#Pong
+# Pong
 
 A simple Pong implementation using [SFML](https://www.sfml-dev.org/).
 
