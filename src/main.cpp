@@ -3,18 +3,26 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include <ball.hpp>
 #include <field.hpp>
 #include <player.hpp>
 
 int main(int ac, char **av) {
 
-  sf::RenderWindow window(sf::VideoMode(1024, 768, 32), "Pong");
+  sf::ContextSettings settings;
+  settings.antialiasingLevel = 8;
 
-  sf::Clock clock;
+  sf::RenderWindow window(sf::VideoMode(1024, 768, 32), "Pong",
+                          sf::Style::Default, settings);
+  window.setKeyRepeatEnabled(false);
+
+  //  sf::Clock clock;
   Player p1(1, PlayerSide::left);
   Player p2(2, PlayerSide::right);
 
   Field field;
+
+  Ball ball;
 
   window.setVerticalSyncEnabled(true);
 
@@ -28,8 +36,9 @@ int main(int ac, char **av) {
         window.close();
         break;
 
-        case sf::Event::MouseMoved:
-        p1.paddle.setPosition({0,(float)sf::Mouse::getPosition(window).y});
+      case sf::Event::MouseMoved:
+        p1.set_paddle_y_position((float)sf::Mouse::getPosition(window).y -
+                                 (128 / 2));
         break;
 
       case sf::Event::KeyPressed:
@@ -37,29 +46,21 @@ int main(int ac, char **av) {
         case sf::Keyboard::Escape:
           window.close();
           break;
-        case sf::Keyboard::W:
-          p2.update_position(clock.getElapsedTime(), PaddleMoveDiretion::UP);
-          break;
-        case sf::Keyboard::S:
-          p2.update_position(clock.getElapsedTime(), PaddleMoveDiretion::DOWN);
-          break;
+
         default:
           break;
         }
-
-      default:
-        break;
       }
-    }
 
-    clock.restart();
-    window.clear();
-    window.draw(p1.paddle);
-    window.draw(p2.paddle);
-    for (const auto &fo : field.field_objects) {
-      window.draw(fo);
+      window.clear();
+      window.draw(p1);
+      window.draw(p2);
+      window.draw(ball);
+      for (const auto &fo : field.field_objects) {
+        window.draw(fo);
+      }
+      window.display();
     }
-    window.display();
   }
 
   return 0;

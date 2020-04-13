@@ -17,7 +17,7 @@ find_package(OpenGL REQUIRED)
 
 find_package(SFML COMPONENTS REQUIRED system window graphics network audio)
 
-add_executable(pong src/main.cpp include/player.hpp include/field.hpp)
+add_executable(pong src/main.cpp include/player.hpp include/field.hpp include/ball.hpp)
 target_include_directories(pong PRIVATE "include")
 
 set_target_properties(pong PROPERTIES

@@ -8,29 +8,45 @@
 enum class PlayerSide { left, right };
 enum class PaddleMoveDiretion { UP = -1, DOWN = 1 };
 
+struct Paddle {
+
+  const float y_width_center = 128 / 2;
+  const float x_width = 8;
+  const float y_width = 128;
+  float y_position;
+  float x_position;
+  float y_speed;
+  bool move;
+
+  sf::RectangleShape shape;
+
+  Paddle(float x_position)
+      : x_position(x_position), y_position(y_position),
+        shape({x_width, y_width}), move(false) {
+
+    y_position = 384 - y_width_center;
+    shape.setPosition({x_position, y_position});
+    shape.setFillColor(sf::Color::White);
+  }
+
+  void set_position_y(float pos) { shape.setPosition({x_position, pos}); }
+
+  operator sf::RectangleShape &(void) { return shape; }
+};
+
 struct Player {
   int id;
   PlayerSide side;
-  const float position_x;
-  float position_y;
-  float speed;
-  sf::RectangleShape paddle;
+  Paddle paddle;
 
   Player(int id, PlayerSide side)
-      : id(id), side(side), paddle({16, 128}),
-        position_x(side == PlayerSide::left ? 4 : 1004), speed(2048) {
+      : id(id), side(side), paddle(side == PlayerSide::left ? 8 : 1004) {}
 
-    position_y = 384 - (128 / 2);
-    paddle.setPosition({position_x, position_y});
-    paddle.setFillColor(sf::Color::White);
-  }
-
-  void update_position(sf::Time &&time, PaddleMoveDiretion direction) {
-    float delta_y = (int)direction * (speed * time.asSeconds());
-    paddle.move({0.0f, delta_y});
-  }
+  void set_paddle_y_position(float pos) { paddle.set_position_y(pos); }
 
   ~Player(void) = default;
+
+  operator sf::RectangleShape &(void) { return paddle; }
 };
 
 #endif
